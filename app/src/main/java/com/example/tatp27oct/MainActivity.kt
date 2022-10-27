@@ -2,9 +2,11 @@ package com.example.tatp27oct
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    var listOfTunisianStatesCombinedWithPicture = listOf(
+    var dataList = listOf(
         Pair("Ariana", R.drawable.ariana),
         Pair("Beja", R.drawable.beja),
         Pair("Ben Arous", R.drawable.benarous),
@@ -31,8 +33,16 @@ class MainActivity : AppCompatActivity() {
         Pair("Zaghouan", R.drawable.zaghouan)
     )
 
+    lateinit var recycler : RecyclerView
+    private lateinit var adapter: StatesAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        recycler = findViewById(R.id.recyclerView)
+        adapter = StatesAdapter(dataList)
+        val layoutRecycler = LinearLayoutManager(applicationContext)
+        recycler.layoutManager = layoutRecycler
+        recycler.adapter = adapter
     }
 }
