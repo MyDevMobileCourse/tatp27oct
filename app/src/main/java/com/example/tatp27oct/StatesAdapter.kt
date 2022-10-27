@@ -8,11 +8,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 internal class StatesAdapter (private var data :List<Pair<String,Int>>): RecyclerView.Adapter<StatesAdapter.MyViewHolder>() {
-    internal inner class MyViewHolder (view : View) : RecyclerView.ViewHolder(view) {
+    var onItemClick: ((Pair<String,Int>) -> Unit)? = null
+    inner class MyViewHolder (view : View) : RecyclerView.ViewHolder(view) {
         var stateName : TextView = view.findViewById(R.id.stateName)
         var stateImage : ImageView = view.findViewById(R.id.stateImage)
-//        var item : TextView = view.findViewById(R.id.textView)
+        init {
+            view.setOnClickListener {
+                onItemClick?.invoke(data[adapterPosition])
+            }
+        }
 
+
+    }
+    fun updateData(data : List<Pair<String,Int>>){
+        this.data = data
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
